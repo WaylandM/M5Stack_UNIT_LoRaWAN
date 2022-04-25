@@ -1,7 +1,7 @@
 
 #include <Arduino.h>
 
-class UNIT_LoRaWAN
+class M5Stack_UNIT_LoRaWAN
 {
 private:
     HardwareSerial *_serial;
