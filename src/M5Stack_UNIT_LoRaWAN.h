@@ -8,7 +8,7 @@ private:
     Stream* deviceSerial;
 public:
     //void Init(HardwareSerial *serial = &Serial2, uint8_t RX = 16, uint8_t TX = 17);
-    void Init(Stream, &serial);
+    void Init(Stream &serial);
     String waitMsg(unsigned long time);
     bool checkDeviceConnect();
     bool checkJoinStatus();
