@@ -1,9 +1,13 @@
 #include "M5Stack_UNIT_LoRaWAN.h"
 
-void UNIT_LoRaWAN::Init(HardwareSerial *serial, uint8_t RX, uint8_t TX) {
-    _serial = serial;
-    _serial->begin(115200, SERIAL_8N1, RX, TX);
-    _serial->flush();
+//void UNIT_LoRaWAN::Init(HardwareSerial *serial, uint8_t RX, uint8_t TX) {
+    //_serial = serial;
+    //_serial->begin(115200, SERIAL_8N1, RX, TX);
+    //_serial->flush();
+//}
+
+void M5Stack_UNIT_LoRaWAN::Init(Stream &serial) {
+    deviceSerial = &serial;
 }
 
 bool M5Stack_UNIT_LoRaWAN::checkDeviceConnect() {
@@ -37,8 +41,8 @@ String M5Stack_UNIT_LoRaWAN::waitMsg(unsigned long time) {
     String restr;
     unsigned long start = millis();
     while (1) {
-        if (_serial->available() || (millis() - start) < time) {
-            String str = _serial->readString();
+        if (deviceSerial->available() || (millis() - start) < time) {
+            String str = deviceSerial->readString();
             restr += str;
         } else {
             break;
@@ -48,7 +52,7 @@ String M5Stack_UNIT_LoRaWAN::waitMsg(unsigned long time) {
 }
 
 void M5Stack_UNIT_LoRaWAN::writeCMD(String command) {
-    _serial->print(command);
+    deviceSerial->print(command);
     delay(100);
 }
 
